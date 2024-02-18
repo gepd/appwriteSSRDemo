@@ -3,6 +3,7 @@ import { getLoggedInUser } from "@/app/helpers/getLoggedInUser";
 import { signInWithEmail } from "@/app/helpers/signInWithEmail";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import styles from "../page.module.css";
 
 export default async function SignInPage() {
   const { account } = createAppwriteClient(headers());
@@ -20,29 +21,35 @@ export default async function SignInPage() {
   };
 
   return (
-    <form action={formAction}>
-      <div>
-        <input
-          id="email"
-          name="email"
-          placeholder="Email"
-          type="email"
-          autoComplete="off"
-        />
+    <main className={styles.main}>
+      <div className={styles.center}>
+        <form action={formAction}>
+          <div style={{ paddingBottom: 5 }}>
+            <input
+              id="email"
+              name="email"
+              placeholder="Email"
+              type="email"
+              autoComplete="off"
+            />
+          </div>
+          <div style={{ paddingBottom: 5 }}>
+            <input
+              id="password"
+              name="password"
+              placeholder="Password"
+              minLength={8}
+              type="password"
+              autoComplete="off"
+            />
+          </div>
+          <div>
+            <button type="submit" style={{ width: "100%" }}>
+              Sign in
+            </button>
+          </div>
+        </form>
       </div>
-      <div>
-        <input
-          id="password"
-          name="password"
-          placeholder="Password"
-          minLength={8}
-          type="password"
-          autoComplete="off"
-        />
-      </div>
-      <div>
-        <button type="submit">Sign in</button>
-      </div>
-    </form>
+    </main>
   );
 }

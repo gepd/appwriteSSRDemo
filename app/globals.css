@@ -77,3 +77,7 @@ button {
   background: #5b5b5b;
   border-radius: 3px;
 }
+
+input {
+  padding: 10px;
+}
