@@ -1,10 +1,10 @@
-import { cookies, headers } from "next/headers";
-import { createAppwriteClient } from "./createAppwriteClient";
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { createAdminClient } from "../appwrite";
 
 export async function signOut() {
   "use server";
-  const { account } = createAppwriteClient(headers());
+  const { account } = createAdminClient();
 
   cookies().delete(process.env.SESSION_COOKIE || "");
 

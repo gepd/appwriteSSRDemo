@@ -1,5 +1,5 @@
-import { createAppwriteClient } from "@/app/helpers/createAppwriteClient";
-import { cookies, headers } from "next/headers";
+import { cookies } from "next/headers";
+import { createAdminClient } from "../appwrite";
 
 export async function signInWithEmail(form: any) {
   "use server";
@@ -11,9 +11,10 @@ export async function signInWithEmail(form: any) {
     return;
   }
 
-  const { account } = createAppwriteClient(headers());
+  const { account } = createAdminClient();
 
   try {
+    account.createOAuth2Session;
     const session = await account.createEmailPasswordSession(email, password);
 
     cookies().set(process.env.SESSION_COOKIE || "appwrite", session.secret, {

@@ -1,12 +1,12 @@
-import { createAppwriteClient } from "@/app/helpers/createAppwriteClient";
 import { getLoggedInUser } from "@/app/helpers/getLoggedInUser";
 import { signInWithEmail } from "@/app/helpers/signInWithEmail";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import styles from "../page.module.css";
+import { createSessionClient } from "@/app/appwrite";
 
 export default async function SignInPage() {
-  const { account } = createAppwriteClient(headers());
+  const { account } = createSessionClient(headers());
   const user = await getLoggedInUser(account);
 
   if (user) redirect("/account");

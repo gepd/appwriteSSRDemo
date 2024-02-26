@@ -1,27 +1,25 @@
-import Image from "next/image";
-import { signOut } from "../helpers/signOut";
+import { createAdminClient } from "../appwrite";
 import styles from "./page.module.css";
-import { createAppwriteClient } from "../helpers/createAppwriteClient";
-import { headers } from "next/headers";
+import { getLoggedInUser } from "../helpers/getLoggedInUser";
+import { signOut } from "../helpers/signOut";
 
 export default async function Home() {
-  const { storage } = createAppwriteClient(headers());
-  const arrayBufferLogo = await storage.getFileView(
-    "appwrite",
-    "appwrite-light"
-  );
-  const logo = Buffer.from(arrayBufferLogo).toString("base64");
+  const { account } = createAdminClient();
+  const user = await getLoggedInUser(account);
   return (
     <main className={styles.main}>
       <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src={`data:image/svg+xml;base64,${logo}`}
-          alt="Appwrite logo"
-          width={132}
-          height={24}
-          priority
-        />
+        <ul>
+          <li>
+            <strong>Email:</strong> {user?.email}
+          </li>
+          <li>
+            <strong>Name:</strong> {user?.name}
+          </li>
+          <li>
+            <strong>ID: </strong> {user?.$id}
+          </li>
+        </ul>
       </div>
 
       <div className={styles.grid}>
