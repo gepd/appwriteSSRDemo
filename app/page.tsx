@@ -1,10 +1,11 @@
-import { createAdminClient } from "../appwrite";
-import styles from "./page.module.css";
+import { headers } from "next/headers";
+import { createSessionClient } from "../appwrite";
 import { getLoggedInUser } from "../helpers/getLoggedInUser";
 import { signOut } from "../helpers/signOut";
+import styles from "./page.module.css";
 
 export default async function Home() {
-  const { account } = createAdminClient();
+  const { account } = createSessionClient(headers());
   const user = await getLoggedInUser(account);
   return (
     <main className={styles.main}>
