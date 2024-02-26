@@ -14,7 +14,6 @@ export async function signInWithEmail(form: any) {
   const { account } = createAdminClient();
 
   try {
-    account.createOAuth2Session;
     const session = await account.createEmailPasswordSession(email, password);
 
     cookies().set(process.env.SESSION_COOKIE || "appwrite", session.secret, {
